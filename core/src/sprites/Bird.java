@@ -10,7 +10,8 @@ import com.badlogic.gdx.audio.Sound;
 
 public class Bird {
     private static final int GRAVITY = -15;
-    private static final int MOVEMENT = 100;
+    public static float MOVEMENT = 100;
+    private float initialMovementSpeed;
     private Vector3 position;
     private Vector3 velocity;
     private Rectangle bounds;
@@ -20,6 +21,7 @@ public class Bird {
     private Sound flap;
 
     public Bird(int x, int y) {
+        initialMovementSpeed = MOVEMENT;
         position = new Vector3(x, y, 0);
         velocity = new Vector3(0,0,0);
         Texture texture = new Texture("birdanimation.png");
@@ -53,6 +55,13 @@ public class Bird {
     public void jump() {
         velocity.y = 250;
         flap.play(0.5f);
+    }
+
+    public void setMovementSpeed(float move) {
+        this.MOVEMENT = move;
+    }
+    public void resetSpeed() {
+        MOVEMENT = initialMovementSpeed;
     }
 
     public Rectangle getBounds() {

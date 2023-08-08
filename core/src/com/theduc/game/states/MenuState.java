@@ -3,6 +3,7 @@ package com.theduc.game.states;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector3;
 import com.theduc.game.FlappyDemo;
 
 import sprites.Tube;
@@ -20,7 +21,13 @@ public class MenuState extends State{
     @Override
     protected void handleInput() {
         if(Gdx.input.justTouched()) {
-            gsm.set(new PlayState(gsm));
+            Vector3 touchPos = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);
+            cam.unproject(touchPos);
+            if (cam.position.x - playbtn.getWidth() / 2 < touchPos.x &&
+                    touchPos.x < cam.position.x + playbtn.getWidth() / 2 &&
+                    cam.position.y < touchPos.y && touchPos.y < cam.position.y + playbtn.getHeight()) {
+                gsm.set(new PlayState(gsm));
+            }
 
         }
     }
@@ -44,8 +51,6 @@ public class MenuState extends State{
     public void dispose() {
         background.dispose();
         playbtn.dispose();
-        System.out.println("Menu State Disposed");
-
     }
 
 }

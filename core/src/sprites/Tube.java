@@ -16,10 +16,14 @@ public class Tube {
     private Rectangle boundsTop, boundsBot;
     private Random rand;
 
+    private boolean scored;
+
+
     public Tube(float x) {
         topTube = new Texture("toptube.png");
         bottomTube = new Texture("bottomtube.png");
         rand = new Random();
+        scored = false;
 
         posTopTube = new Vector2(x, rand.nextInt(FLUCTUATION) + TUBE_GAP + LOWEST_OPENING);
         posBotTube = new Vector2(x, posTopTube.y - TUBE_GAP - bottomTube.getHeight());
@@ -54,6 +58,16 @@ public class Tube {
     public boolean collides(Rectangle player) {
         return player.overlaps(boundsTop) || player.overlaps(boundsBot);
     }
+
+    public boolean isScored() {
+        return scored;
+    }
+
+    public void setScored(boolean scored) {
+        this.scored = scored;
+    }
+
+
 
     public void dispose() {
         topTube.dispose();
